@@ -1,0 +1,12 @@
+<nav>
+    <div class="nav-wrapper">
+        <a href="#!" class="brand-logo center">Courses App</a>
+        <ul class="right hide-on-med-and-down">
+
+            <li {{#if isHome}}class="active"{{/if}}><a href="/">Main</a></li>
+            <li {{#if isCourses}}class="active"{{/if}}><a href="/courses">Courses</a></li>
+            <li {{#if isAdd}}class="active"{{/if}}><a href="/add">Add cours</a></li>
+
+        </ul>
+    </div>
+</nav>
