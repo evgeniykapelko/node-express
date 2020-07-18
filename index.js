@@ -17,7 +17,11 @@ app.engine('hbs', hbs.engine)
 app.set('view engine', 'hbs')
 app.set('views', 'views')
 
+// for css 
 app.use(express.static('public'));
+
+// for read req.body
+app.use(express.urlencoded({extended: true}))
 
 app.use('/', homeRoutes);
 app.use('add', addRoutes);
