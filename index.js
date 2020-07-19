@@ -6,7 +6,9 @@ const addRoutes = require('./routes/add')
 const coursesRoutes = require('./routes/courses')
 const cartRoutes = require('./routes/cart')
 
-
+const mongoose = require('mongoose')
+const sprintf = require('sprintf').sprintf;
+const config = require('./config');
 
 const app = express();
 
@@ -30,9 +32,26 @@ app.use('/add', addRoutes);
 app.use('/courses', coursesRoutes);
 app.use('/cart', cartRoutes);
 
+async function start() {
+    try {
+        const PORT = config.PORT;
+        const url = sprintf(
+            config.MONGO_URL,
+            config.NONGO_USER,
+            config.MONGO_PASSWORD,
+            config.MONGO_DB
+        )
 
-const PORT = process.env.PORT || 3000;
+        await mongoose.connect(url, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        })
+        app.listen(3000, () => {console.log(`Server is running on port ${PORT}`)})
+    } catch(e) {
+        console.log(e)
+    }
+    
+}
 
-app.listen(3000, () => {
-    console.log(`Server is running on port ${PORT}`);
-})
+start()
+

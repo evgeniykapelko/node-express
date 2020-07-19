@@ -1,7 +1,6 @@
 const {Router} = require('express');
 const router = require('./courses');
 const Cart = require('../models/cart');
-const Courses = require('../models/courses');
 const Course = require('../models/course');
 
 const routr = new Router();
@@ -27,4 +26,4 @@ router.get('/', async (req, res) => {
         price: cart.price
     })
 })
-module.exports = rouer;
+module.exports = router;
