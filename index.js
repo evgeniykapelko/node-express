@@ -24,8 +24,8 @@ app.use(express.static('public'));
 app.use(express.urlencoded({extended: true}))
 
 app.use('/', homeRoutes);
-app.use('add', addRoutes);
-app.use('courses', coursesRoutes);
+app.use('/add', addRoutes);
+app.use('/courses', coursesRoutes);
 
 
 const PORT = process.env.PORT || 3000;
