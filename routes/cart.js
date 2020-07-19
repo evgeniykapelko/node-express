@@ -1,0 +1,23 @@
+const {Router} = require('express');
+const router = require('./courses');
+const Cart = require('../models/cart');
+const Courses = require('../models/courses');
+const Course = require('../models/course');
+
+const routr = new Router();
+
+
+router.post('/add', async (req, res) => {
+    const course = await Course.getById(req.body.id)
+    await Cart.add(course)
+    res.redirect('/cart')
+})
+
+router.get('/', async (req, res) => {
+    const cart = await Cart.fetch()
+    res.render('cart', {
+        title: 'Cart',
+        cart
+    })
+})
+module.exports = rouer;
