@@ -20,7 +20,7 @@ app.set('view engine', 'hbs')
 app.set('views', 'views')
 
 // for css 
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // for read req.body
 app.use(express.urlencoded({extended: true}))
