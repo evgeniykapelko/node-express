@@ -50,7 +50,6 @@ async function start() {
     } catch(e) {
         console.log(e)
     }
-    
 }
 
 start()
