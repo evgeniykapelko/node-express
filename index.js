@@ -44,7 +44,8 @@ async function start() {
 
         await mongoose.connect(url, {
             useNewUrlParser: true,
-            useUnifiedTopology: true
+            useUnifiedTopology: true,
+            useFindAndModify: false
         })
         app.listen(3000, () => {console.log(`Server is running on port ${PORT}`)})
     } catch(e) {
