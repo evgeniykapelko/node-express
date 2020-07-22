@@ -9,6 +9,7 @@ const cartRoutes = require('./routes/cart')
 const mongoose = require('mongoose')
 const sprintf = require('sprintf').sprintf;
 const config = require('./config');
+const user = require('./models/user')
 
 const app = express();
 
@@ -20,6 +21,18 @@ const hbs = exphbs.create({
 app.engine('hbs', hbs.engine)
 app.set('view engine', 'hbs')
 app.set('views', 'views')
+
+
+app.use(async (req, res, next) => {
+    try {
+        const user = await User.findById('54544gft54gssdfs')
+        req.user = user
+        next()
+    } catch (e) {
+        console.log(e)
+    }
+    
+})
 
 // for css 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -47,7 +60,18 @@ async function start() {
             useUnifiedTopology: true,
             useFindAndModify: false
         })
-        app.listen(3000, () => {console.log(`Server is running on port ${PORT}`)})
+
+        const candidate = await User.findOne()
+        if (!candidate) {
+            const user = new User({
+                email: 'admin@admin.com',
+                name: 'Jenya',
+                cart: {item: []}
+            })
+
+            await user.save()
+        }
+        app.listen(PORT, () => {console.log(`Server is running on port ${PORT}`)})
     } catch(e) {
         console.log(e)
     }

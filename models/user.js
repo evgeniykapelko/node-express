@@ -27,4 +27,4 @@ const userSchema = new Schema({
     }
 })
 
-module.exports = mode('User', userSchema)
+module.exports = model('User', userSchema)
