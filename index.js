@@ -27,16 +27,15 @@ app.set('view engine', 'hbs')
 app.set('views', 'views')
 
 
-app.use(async (req, res, next) => {
-    try {
-        const user = await User.findById('54544gft54gssdfs')
-        req.user = user
-        next()
-    } catch (e) {
-        console.log(e)
-    }
-    
-})
+// app.use(async (req, res, next) => {
+//     try {
+//         const user = await User.findById('54544gft54gssdfs')
+//         req.user = user
+//         next()
+//     } catch (e) {
+//         console.log(e)
+//     }
+// })
 
 // for css 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -74,16 +73,16 @@ async function start() {
             useFindAndModify: false
         })
 
-        const candidate = await User.findOne()
-        if (!candidate) {
-            const user = new User({
-                email: 'admin@admin.com',
-                name: 'Jenya',
-                cart: {item: []}
-            })
+        // const candidate = await User.findOne()
+        // if (!candidate) {
+        //     const user = new User({
+        //         email: 'admin@admin.com',
+        //         name: 'Jenya',
+        //         cart: {item: []}
+        //     })
 
-            await user.save()
-        }
+        //     await user.save()
+        // }
         app.listen(PORT, () => {console.log(`Server is running on port ${PORT}`)})
     } catch(e) {
         console.log(e)
