@@ -1,16 +1,19 @@
 const express = require('express');
 const path = require('path');
 const exphbs = require('express-handlebars');
+const session = require('express-session');
 const homeRoutes = require('./routes/home');
 const addRoutes = require('./routes/add')
 const ordersRoutes = require('./routes/orders')
 const coursesRoutes = require('./routes/courses')
 const cartRoutes = require('./routes/cart')
+const authRouters = require('./routes/auth')
 
 const mongoose = require('mongoose')
 const sprintf = require('sprintf').sprintf;
 const config = require('./config');
-const user = require('./models/user')
+const User = require('./models/user');
+const varMiddleware = require('./middleware/variables')
 
 const app = express();
 
@@ -40,12 +43,20 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // for read req.body
 app.use(express.urlencoded({extended: true}))
+app.use(session({
+    secret: 'some secret value',
+    resave: false,
+    saveUninitialized: false
+}))
+app.use(varMiddleware)
 
 app.use('/', homeRoutes);
 app.use('/add', addRoutes);
 app.use('/courses', coursesRoutes);
 app.use('/cart', cartRoutes);
 app.use('/orders', ordersRoutes)
+app.use('/auth', authRoutes)
+
 
 async function start() {
     try {
