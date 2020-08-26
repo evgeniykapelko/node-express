@@ -22,7 +22,7 @@ router.post('/login', async (req, res) => {
         const candidate = await User.findOne({ email })
 
         if (candidate) {
-            const areSame = password === candidate.password
+            const areSame = password === candidate.password 
 
             if (areSame) {
                 req.session.user = candidate;
