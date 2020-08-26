@@ -14,7 +14,8 @@ const mongoose = require('mongoose')
 const sprintf = require('sprintf').sprintf;
 const config = require('./config');
 const User = require('./models/user');
-const varMiddleware = require('./middleware/variables')
+const varMiddleware = require('./middleware/variables');
+const userMiddleware = require('./middleware/user');
 
 const url = sprintf(
     config.MONGO_URL,
@@ -49,6 +50,7 @@ app.use(session({
     store: store
 }))
 app.use(varMiddleware)
+app.use(userMiddleware)
 
 app.use('/', homeRoutes);
 app.use('/add', addRoutes);
